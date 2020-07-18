@@ -12,6 +12,12 @@ class MicropostsController < ApplicationController
       flash.now[:danger] = "メッセージの投稿に失敗しました。"
       render 'toppages/index'
     end
+    
+    def likes
+      @micropost = Micropost.find(params[:id])
+      @likes = @micropost.favoritings.page(params[:page])
+      counts(@micropost)
+    end
   end
 
   def destroy
